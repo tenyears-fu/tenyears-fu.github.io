@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Tensorflow-GPU | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Tensorflow从源码编译安装tensorflow-gpu版本教你安装NVIDIA驱动，安装cuda，cudnn，bazel 教你通过使用bazel编译tensorflow源文件安装tensorflow-gpu版本 [![VouAAI.md.png](https:&#x2F;&#x2F;s2.ax1x.com&#x2F;2019&#x2F;06&#x2F;15&#x2F;VouAAI.md.png)](https:&#x2F;&#x2F;imgchr.com&#x2F;i&#x2F;Vo">
+<meta name="keywords" content="[object Object]">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tensorflow-GPU">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;06&#x2F;13&#x2F;Tensorflow-GPU&#x2F;index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Tensorflow从源码编译安装tensorflow-gpu版本教你安装NVIDIA驱动，安装cuda，cudnn，bazel 教你通过使用bazel编译tensorflow源文件安装tensorflow-gpu版本 [![VouAAI.md.png](https:&#x2F;&#x2F;s2.ax1x.com&#x2F;2019&#x2F;06&#x2F;15&#x2F;VouAAI.md.png)](https:&#x2F;&#x2F;imgchr.com&#x2F;i&#x2F;Vo">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-10-18T06:25:52.257Z">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Tensorflow-GPU" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/06/13/Tensorflow-GPU/" class="article-date">
+  <time datetime="2019-06-13T12:45:52.000Z" itemprop="datePublished">2019-06-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Tensorflow-GPU
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Tensorflow从源码编译安装tensorflow-gpu版本"><a href="#Tensorflow从源码编译安装tensorflow-gpu版本" class="headerlink" title="  Tensorflow从源码编译安装tensorflow-gpu版本"></a><center> <font color=#A52A2A size=7> Tensorflow从源码编译安装tensorflow-gpu版本</font></center></h1><p>教你安装NVIDIA驱动，安装cuda，cudnn，bazel</p>
+<p>教你通过使用bazel编译tensorflow源文件安装tensorflow-gpu版本</p>
+<center>[![VouAAI.md.png](https://s2.ax1x.com/2019/06/15/VouAAI.md.png)](https://imgchr.com/i/VouAAI)</center>
+
+<a id="more"></a>
+
+
+
+<h1 id="tensorflow"><a href="#tensorflow" class="headerlink" title="  tensorflow"></a><center> <font color=#A52A2A size=7> tensorflow</font></center></h1><p>tensorflow-gpu的安装主要分为4步：</p>
+<ul>
+<li>更新nvidia驱动</li>
+<li>安装Cuda和cuDNN</li>
+<li>安装Bazel</li>
+<li>编译安装tensorflow-gpu版本</li>
+</ul>
+<h2 id="Step1：更新驱动"><a href="#Step1：更新驱动" class="headerlink" title="Step1：更新驱动"></a><font size=6 color=#FF7F50>Step1：更新驱动</font></h2><p>更新驱动有两种方式，一种是在终端通过网络更新，一种是手动更新</p>
+<h3 id="方法一：手动更新"><a href="#方法一：手动更新" class="headerlink" title="方法一：手动更新"></a><font size=5 color=#00FFFF>方法一：手动更新</font></h3><p>首先我们要下载418版本的NVIDIA驱动</p>
+<h4 id="1-禁止Nouveau驱动，避免开机卡在logo处"><a href="#1-禁止Nouveau驱动，避免开机卡在logo处" class="headerlink" title="1. 禁止Nouveau驱动，避免开机卡在logo处"></a><font color=#008000 size=4>1. 禁止Nouveau驱动，避免开机卡在logo处</font></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /boot/grub/grub.cfg </span><br><span class="line">在文本中搜索quiet slash 然后添加acpi_osi=linux nomodeset，保存文本即可。</span><br><span class="line">#或者可以</span><br><span class="line">sudo vim sudo gedit /etc/modprobe.d/blacklist.conf</span><br><span class="line">添加：</span><br><span class="line">blacklist nouveau</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-卸载低版本的nvidia驱动"><a href="#2-卸载低版本的nvidia驱动" class="headerlink" title="2. 卸载低版本的nvidia驱动"></a><font color=#008000 size=4>2. 卸载低版本的nvidia驱动</font></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get purge nvidia*</span><br><span class="line">sudo apt-get --purge remove xserver-xorg-video-nouveau</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-关闭lightdm"><a href="#3-关闭lightdm" class="headerlink" title="3. 关闭lightdm"></a><font color=#008000 size=4>3. 关闭lightdm</font></h4><p>重启电脑，按ctrl+alt+F2进入x-server<br>输入用户名和密码</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo service lightdm stop</span><br><span class="line">如果提示unit lightdm.service not loaded</span><br><span class="line">则先安装LightDm： sudo apt install lightdm</span><br><span class="line">安装完毕后跳出一个界面，选择lightdm，再sudo service lightdm stop</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-执行安装程序"><a href="#4-执行安装程序" class="headerlink" title="4. 执行安装程序"></a><font color=#008000 size=4>4. 执行安装程序</font></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd Downloads</span><br><span class="line">sudo chmod a+x NVIDIA....(自行下载的驱动名)  </span><br><span class="line">sudo ./NVIDIA.....(自行下载的驱动名)</span><br></pre></td></tr></table></figure>
+
+<h4 id="5-重启lightdm"><a href="#5-重启lightdm" class="headerlink" title="5. 重启lightdm"></a><font color=#008000 size=4>5. 重启lightdm</font></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service lightdm start</span><br></pre></td></tr></table></figure>
+
+<p>至此，驱动更新完成，可在终端验证</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvidia-smi</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="方法二：网络安装"><a href="#方法二：网络安装" class="headerlink" title="方法二：网络安装"></a><font size=5 color=#00FFFF>方法二：网络安装</font></h3><p>前两步和手动安装相同</p>
+<h4 id="3-添加ppa源"><a href="#3-添加ppa源" class="headerlink" title="3.添加ppa源"></a><font color=#008000 size=4>3.添加ppa源</font></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository ppa:graphics-drivers</span><br><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-查看可用驱动"><a href="#4-查看可用驱动" class="headerlink" title="4.查看可用驱动"></a><font color=#008000 size=4>4.查看可用驱动</font></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ubuntu-drivers devices</span><br></pre></td></tr></table></figure>
+
+<p>会显示很多驱动，其中还有一个recommed的驱动,我们使用418版本的</p>
+<h4 id="5-安装驱动"><a href="#5-安装驱动" class="headerlink" title="5.安装驱动"></a><font color=#008000 size=4>5.安装驱动</font></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install nvidia-418</span><br></pre></td></tr></table></figure>
+
+<p>至此，驱动更新完成，可在终端验证</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvidia-smi</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Step2-：安装CUDA和cuDNN"><a href="#Step2-：安装CUDA和cuDNN" class="headerlink" title="Step2 ：安装CUDA和cuDNN"></a><font size=6 color=#FF7F50>Step2 ：安装CUDA和cuDNN</font></center></h2><p>CUDA是NVIDIA开发的用于科学技术的工具，cuDNN是配合CUDA使用的。</p>
+<p>在安装他们之前，我们<strong>首先要根据我们需要的tensorflow版本来确定我们需要的cuda和cuDNN版本</strong>,不然就会出错。因为我们使用tensorflow1.13，所以我们需要Cuda10.0和cuDNN7.6.0</p>
+<h3 id="一：安装CUDA10-0"><a href="#一：安装CUDA10-0" class="headerlink" title="一：安装CUDA10.0"></a><font size=5 color=#00FFFF>一：安装CUDA10.0</font></h3><h4 id="1-下载"><a href="#1-下载" class="headerlink" title="1.下载"></a><font color=#008000 size=4>1.下载</font></h4><p>去nvidia官网<a href="https://developer.nvidia.com/cuda-toolkit-archive" target="_blank" rel="noopener">地址</a>下载10.0版本的cuda,下载.sh文件。如图所示</p>
+<center>[![Vonz9K.md.png](https://s2.ax1x.com/2019/06/15/Vonz9K.md.png)](https://imgchr.com/i/Vonz9K)</center>
+
+<h4 id="２．安装"><a href="#２．安装" class="headerlink" title="２．安装"></a><font color=#008000 size=4>２．安装</font></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo sh cuda_10.0.130_410.48_linux.run</span><br></pre></td></tr></table></figure>
+
+<p>不要选择为显卡安装加速驱动，因为我们已经在第一步时安装了驱动了</p>
+<p>在终端下检验,会输出相应信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvcc --version</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="二：安装cuDNN"><a href="#二：安装cuDNN" class="headerlink" title="二：安装cuDNN"></a><font size=5 color=#00FFFF>二：安装cuDNN</font></h3><h4 id="1-下载cuDNN"><a href="#1-下载cuDNN" class="headerlink" title="1.下载cuDNN"></a><font color=#008000 size=4>1.下载cuDNN</font></h4><p>下载比较麻烦，要注册账号，不过下载还是很简单的，下载linux版本都就可以</p>
+<h4 id="2-使用cuDNN"><a href="#2-使用cuDNN" class="headerlink" title="2.使用cuDNN"></a><font color=#008000 size=4>2.使用cuDNN</font></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo cp cuda/include/cudnn.h /usr/local/cuda/include/</span><br><span class="line">sudo cp cuda/lib64/libcudnn* /usr/local/cuda/lib64/</span><br><span class="line">sudo chmod a+r /usr/local/cuda/include/cudnn.h</span><br><span class="line">sudo chmod a+r /usr/local/cuda/lib64/libcudnn*</span><br></pre></td></tr></table></figure>
+
+<p>在终端下检验输出相应信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /usr/local/cuda/include/cudnn.h | grep CUDNN_MAJOR -A 2</span><br></pre></td></tr></table></figure>
+
+<p>或者也可以直接下载ubuntu版本的runtime deb包安装</p>
+<h2 id="Step-3-安装bazel"><a href="#Step-3-安装bazel" class="headerlink" title="Step 3:安装bazel"></a><font size=6 color=#FF7F50>Step 3:安装bazel</font></h2><p>bazel是谷歌推出的tensorflow变异工具，通过它，我们变异tensorflow，他的安装可以参考<a href="https://docs.bazel.build/versions/master/install-ubuntu.html" target="_blank" rel="noopener">官方教程</a></p>
+<h3 id="1-安装依赖"><a href="#1-安装依赖" class="headerlink" title="1.安装依赖"></a><font size=5 color=#00FFFF>1.安装依赖</font></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install pkg-config zip g++ zlib1g-dev unzip python</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-下载bazel"><a href="#2-下载bazel" class="headerlink" title="2.下载bazel"></a><font size=5 color=#00FFFF>2.下载bazel</font></h3><p>Next, download the Bazel binary installer named <code>bazel-&lt;version&gt;-installer-linux-x86_64.sh</code> from the <a href="https://github.com/bazelbuild/bazel/releases" target="_blank" rel="noopener">Bazel releases page on GitHub</a>.</p>
+<h3 id="3-运行安装程序"><a href="#3-运行安装程序" class="headerlink" title="3.运行安装程序"></a><font size=5 color=#00FFFF>3.运行安装程序</font></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chmod +x bazel-&lt;version&gt;-installer-linux-x86_64.sh</span><br><span class="line">./bazel-&lt;version&gt;-installer-linux-x86_64.sh --user</span><br></pre></td></tr></table></figure>
+
+<p>The <code>--user</code> flag installs Bazel to the <code>$HOME/bin</code> directory on your system and sets the <code>.bazelrc</code> path to <code>$HOME/.bazelrc</code>. Use the <code>--help</code> command to see additional installation option</p>
+<h3 id="4-配置环境变量"><a href="#4-配置环境变量" class="headerlink" title="4.配置环境变量"></a><font size=5 color=#00FFFF>4.配置环境变量</font></h3><p>If you ran the Bazel installer with the <code>--user</code> flag as above, the Bazel executable is installed in your <code>$HOME/bin</code> directory. It’s a good idea to add this directory to your default paths, as follows:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export PATH=&quot;$PATH:$HOME/bin&quot;</span><br></pre></td></tr></table></figure>
+
+<p>You can also add this command to your <code>~/.bashrc</code> file.</p>
+<h2 id="Step-4：编译tensorflow-gpu版本"><a href="#Step-4：编译tensorflow-gpu版本" class="headerlink" title="Step 4：编译tensorflow-gpu版本"></a><font size=6 color=#FF7F50>Step 4：编译tensorflow-gpu版本</font></h2><p>具体编译过程可以参考<a href="https://www.tensorflow.org/install/source" target="_blank" rel="noopener">官方文档</a></p>
+<h3 id="1-安装依赖-1"><a href="#1-安装依赖-1" class="headerlink" title="1. 安装依赖"></a><font size=5 color=#00FFFF>1. 安装依赖</font></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install python-dev python-pip  # or python3-dev python3-pip</span><br><span class="line">pip install -U --user pip six numpy wheel setuptools mock future&gt;=0.17.1</span><br><span class="line">pip install -U --user keras_applications==1.0.6 --no-deps</span><br><span class="line">pip install -U --user keras_preprocessing==1.0.5 --no-deps</span><br></pre></td></tr></table></figure>
+
+<p>Install the TensorFlow <em>pip</em> package dependencies (if using a virtual environment, omit the <code>--user</code> argument):</p>
+<h3 id="2-克隆tensoflow库"><a href="#2-克隆tensoflow库" class="headerlink" title="2.克隆tensoflow库"></a><font size=5 color=#00FFFF>2.克隆tensoflow库</font></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/tensorflow/tensorflow.git</span><br><span class="line">cd tensorflow</span><br></pre></td></tr></table></figure>
+
+<p>The repo defaults to the <code>master</code> development branch. You can also checkout a <a href="https://github.com/tensorflow/tensorflow/releases" target="_blank" rel="noopener">release branch</a> to build:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout branch_name  # r1.9, r1.10, etc.</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-Configure"><a href="#3-Configure" class="headerlink" title="3.Configure"></a><font size=5 color=#00FFFF>3.Configure</font></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./configure</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-编译"><a href="#4-编译" class="headerlink" title="4.编译"></a><font size=5 color=#00FFFF>4.编译</font></h3><ul>
+<li>CPU-only</li>
+</ul>
+<p>Use <code>bazel</code> to make the TensorFlow package builder with CPU-only support:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bazel build --config=opt //tensorflow/tools/pip_package:build_pip_package</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>GPU support</li>
+</ul>
+<p>To make the TensorFlow package builder with GPU support:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bazel build --config=opt --config=cuda //tensorflow/tools/pip_package:build_pip_package</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-构建tensorflow安装包"><a href="#5-构建tensorflow安装包" class="headerlink" title="5.构建tensorflow安装包"></a><font size=5 color=#00FFFF>5.构建tensorflow安装包</font></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bazel-bin/tensorflow/tools/pip_package/build_pip_package /tmp/tensorflow_pkg</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-安装tensorflow-gpu"><a href="#6-安装tensorflow-gpu" class="headerlink" title="6.安装tensorflow-gpu"></a><font size=5 color=#00FFFF>6.安装tensorflow-gpu</font></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install /tmp/tensorflow_pkg/tensorflow-version-tags.whl</span><br></pre></td></tr></table></figure>
+
+<p>安装完毕之后，可以在Python环境中验证</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf </span><br><span class="line">hello=tf.constant(&apos;hello world from tensorflow&apos;)</span><br><span class="line">sess=tf.Session()</span><br><span class="line">sess.run(hello)</span><br></pre></td></tr></table></figure>
+
+<p>如果能够输出<strong>hello world from tensorflow</strong>即安装成功</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/06/13/Tensorflow-GPU/" data-id="ck1x24yuk0001b9uj51fh6vfe" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/object-Object/" rel="tag">[object Object]</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/10/19/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Hello World
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/04/05/V2ray/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">v2ray全面使用保姆级教程</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blog/" rel="tag">Blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/object-Object/" rel="tag">[object Object]</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/v2ray/" rel="tag">v2ray</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Blog/" style="font-size: 10px;">Blog</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/object-Object/" style="font-size: 10px;">[object Object]</a> <a href="/tags/v2ray/" style="font-size: 10px;">v2ray</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/10/19/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/13/Tensorflow-GPU/">Tensorflow-GPU</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/05/V2ray/">v2ray全面使用保姆级教程</a>
+          </li>
+        
+          <li>
+            <a href="/2019/01/13/HexoAndBlog/">Hexo搭建博客手把手教程</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
